@@ -19,6 +19,13 @@ const io = new Server(server, () => {
     methods: ["GET", "POST"];
   }
 });
+io.on("connect", (socket) => {
+  console.log("socket connected:", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
 
 server.listen(3001, () => {
   console.log("SERVER RUNNING...");
