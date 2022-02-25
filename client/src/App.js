@@ -1,6 +1,7 @@
 import "./App.css";
 import io from "socket.io-client";
 import { useState } from "react";
+import Chat from "./Chat";
 
 // eslint-disable-next-line
 const socket = io.connect("http://localhost:3001");
@@ -32,6 +33,7 @@ function App() {
         value={room}
       />
       <button onClick={joinRoom}>Join Room</button>
+      <Chat socket={socket} user={user} room={room} />
     </div>
   );
 }
