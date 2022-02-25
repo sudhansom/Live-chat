@@ -7,7 +7,10 @@ const socket = io.connect("http://localhost:3001");
 function App() {
   return (
     <div className="App">
-      <h1>socket programming...</h1>
+      <h1>Join A Chat</h1>
+      <input type="text" placeholder="hello..."></input>
+      <input type="text" placeholder="room"></input>
+      <button>Join Room</button>
     </div>
   );
 }
