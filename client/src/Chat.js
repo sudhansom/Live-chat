@@ -16,12 +16,13 @@ function Chat({ socket, user, room }) {
           new Date(Date.now()).getMinutes(),
       };
       await socket.emit("send_message", messageData);
+      setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
     }
   };
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessageList([...messageList, data]);
+      setMessageList((list) => [...list, data]);
     });
   }, [socket]);
   return (
@@ -29,7 +30,23 @@ function Chat({ socket, user, room }) {
       <div className="chat-header">
         <p>Live Chat</p>
       </div>
-      <div className="chat-body"></div>
+      <div className="chat-body">
+        {messageList.map((messageContent) => {
+          return (
+            <div className="message">
+              <div>
+                <div className="message-content">
+                  <p>{messageContent.message}</p>
+                </div>
+                <div className="message-meta">
+                  <p>{messageContent.time}</p>
+                  <p>{messageContent.author}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
       <div className="chat-footer">
         <input
           type="text"
