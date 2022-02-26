@@ -3,44 +3,43 @@ import io from "socket.io-client";
 import { useState } from "react";
 import Chat from "./Chat";
 
-// eslint-disable-next-line
 const socket = io.connect("http://localhost:3001");
 
 function App() {
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
+
   const joinRoom = () => {
-    if (user !== "" && room !== "") {
+    if (username !== "" && room !== "") {
       socket.emit("join_room", room);
       setShowChat(true);
     }
   };
+
   return (
     <div className="App">
       {!showChat ? (
-        <div>
-          <h1>Join A Chat</h1>
+        <div className="joinChatContainer">
+          <h3 className="title">Join A Chat</h3>
           <input
             type="text"
-            placeholder="hello..."
+            placeholder="John..."
             onChange={(event) => {
-              setUser(event.target.value);
+              setUsername(event.target.value);
             }}
-            value={user}
           />
           <input
             type="text"
-            placeholder="room"
+            placeholder="Room ID..."
             onChange={(event) => {
               setRoom(event.target.value);
             }}
-            value={room}
           />
-          <button onClick={joinRoom}>Join Room</button>
+          <button onClick={joinRoom}>Join A Room</button>
         </div>
       ) : (
-        <Chat socket={socket} user={user} room={room} />
+        <Chat socket={socket} username={username} room={room} />
       )}
     </div>
   );
