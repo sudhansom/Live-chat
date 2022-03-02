@@ -18,7 +18,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://stoic-swirles-e06721.netlify.app/",
+    origin: "*", //"https://stoic-swirles-e06721.netlify.app/",
     methods: ["GET", "POST"],
   },
 });
